@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Col, Row} from "react-bootstrap";
+import {Col, Row, Jumbotron} from "react-bootstrap";
+import './forms-style.css'
 import AuthorizationForm from "./AuthorizationForm";
 
 
@@ -9,7 +10,9 @@ export default class MainForm extends React.Component<{}, {}> {
             <div>
                 <Row className="main_indent">
                     <Col md={6} mdOffset={3}>
-                        <AuthorizationForm/>
+                        <Jumbotron className="main_indent">
+                            <AuthorizationForm/>
+                        </Jumbotron>
                     </Col>
                 </Row>
             </div>
