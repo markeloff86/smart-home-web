@@ -1,18 +1,50 @@
 import * as React from 'react';
-import {Col, Row} from "react-bootstrap";
 import AuthorizationForm from "./AuthorizationForm";
+import {connect} from "react-redux";
+import * as actions from "../actions/actions";
+import {IRecommendationItem} from "../interfaces/smartHomeInterface";
+import SmartHomeForm from "./SmartHomeForm";
+import "antd/dist/antd.less";
 
+interface StateProps {
+    recommendation?: IRecommendationItem[];
+}
 
-export default class MainForm extends React.Component<{}, {}> {
+interface DispatchProps {
+    getRecommendation(): void;
+
+    getAvailableControls(): void;
+}
+
+class MainForm extends React.Component<StateProps & DispatchProps, {}> {
+
+    componentWillMount() {
+        debugger;
+        this.props.getAvailableControls();
+        this.props.getRecommendation();
+    }
+
     render(): JSX.Element {
         return (
-            <div>
-                <Row className="main_indent">
-                    <Col md={6} mdOffset={3}>
-                        <AuthorizationForm/>
-                    </Col>
-                </Row>
+            <div className="main_indent">
+                <AuthorizationForm/>
+                <SmartHomeForm/>
             </div>
         );
     }
+}
+
+const mapStateToProps = (state: any): StateProps => {
+    return {
+        recommendation: state
+    };
 };
+
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+    return {
+        getRecommendation: () => dispatch(actions.getRecommendations()),
+        getAvailableControls: () => dispatch(actions.getAvailableControls())
+    }
+};
+
+export default connect<StateProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(MainForm);

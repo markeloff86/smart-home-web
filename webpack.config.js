@@ -1,5 +1,3 @@
-var ExtractTextPlugin  = require('extract-text-webpack-plugin');
-
 module.exports = {
     entry: "./src/app.tsx",
     output: {
@@ -14,7 +12,8 @@ module.exports = {
         rules: [
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-            { test: /\.css$/, loaders: ['style-loader', 'css-loader']}
+            { test: /\.css$/, loaders: ['style-loader', 'css-loader']},
+            { test: /\.less$/, loaders: ['style-loader', 'css-loader', 'less-loader']}
         ]
     },
     externals: {
